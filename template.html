@@ -10,20 +10,24 @@
     The result is...
     <span id='product'></span>
 
-    <script type='text/javascript'>
-      document.querySelector('button')
-        .addEventListener('click', function() {
-          const product = Module.ccall(
-            'multiply',
-            'number',
-            ['number', 'number'],
-            [
-              document.querySelector('#arg1').value,
-              document.querySelector('#arg2').value
-            ]
-          );
-          document.getElementById('product').innerText = product;
-        });
+    <script>
+      var Module = {
+        onRuntimeInitialized: function() {
+          document.querySelector('button')
+            .addEventListener('click', function() {
+              const product = Module.ccall(
+                'multiply',
+                'number',
+                ['number', 'number'],
+                [
+                  document.querySelector('#arg1').value,
+                  document.querySelector('#arg2').value
+                ]
+              );
+              document.getElementById('product').innerText = product;
+            });
+        }
+      };
     </script>
 
     {{{ SCRIPT }}}
