@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css" />
+    <style>
+      input { width: 5rem; }
+    </style>
+    <title>C++ / WebAssembly Demo</title>
+  </head>
+  <body>
+    <header>
+      <h1>C++ / WebAssembly Demo</h1>
+    </header>
+
+    <input type="number" id="arg1"> x
+    <input type="number" id="arg2">
+    <button>Multiply</button>
+    <p id="result"></p>
+
+    <script>
+      const arg1 = document.querySelector('#arg1');
+      const arg2 = document.querySelector('#arg2');
+
+      arg1.value = 2 + Math.floor(Math.random() * 9);
+      arg2.value = 2 + Math.floor(Math.random() * 9);
+
+      var Module = {
+        onRuntimeInitialized: () => {
+          document.querySelector('button')
+            .addEventListener('click', () => {
+              document.querySelector('#result').innerText = 'The result is '
+                + Module.ccall('multiply', 'number', ['number', 'number'], [arg1.value, arg2.value]);
+            });
+        }
+      };
+    </script>
+
+    <script src="cpp-wasm-demo.js"></script>
+  </body>
+</html>
