@@ -1,37 +1,43 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="A depth-first search approach to solving Sudoku. Written in C++, compiled to WebAssembly and presented with React." />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css" />
+    <style>
+      input { width: 5rem; }
+    </style>
+    <title>C++ / WebAssembly Demo</title>
   </head>
   <body>
-    <input type='number' id='arg1'> x
-    <input type='number' id='arg2'>
+    <header>
+      <h1>C++ / WebAssembly Demo</h1>
+    </header>
+
+    <input type="number" id="arg1"> x
+    <input type="number" id="arg2">
     <button>Multiply</button>
-    The result is...
-    <span id='product'></span>
+    <p id="result"></p>
 
     <script>
+      const arg1 = document.querySelector('#arg1');
+      const arg2 = document.querySelector('#arg2');
+
+      arg1.value = 2 + Math.floor(Math.random() * 9);
+      arg2.value = 2 + Math.floor(Math.random() * 9);
+
       var Module = {
         onRuntimeInitialized: function() {
           document.querySelector('button')
             .addEventListener('click', function() {
-              const product = Module.ccall(
-                'multiply',
-                'number',
-                ['number', 'number'],
-                [
-                  document.querySelector('#arg1').value,
-                  document.querySelector('#arg2').value
-                ]
-              );
-              document.getElementById('product').innerText = product;
+              document.getElementById('result').innerText = 'The result is '
+                + Module.ccall('multiply', 'number', ['number', 'number'], [arg1.value, arg2.value]);
             });
         }
       };
     </script>
 
-    <script async type="text/javascript" src="index.js"></script>
+    <script src="/cpp-wasm-demo.js"></script>
   </body>
 </html>
-
-
