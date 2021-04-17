@@ -1,4 +1,5 @@
 #!/bin/bash
 
-mkdir -p public
-emcc multiply.cpp -o public/cpp-wasm-demo.js -s "EXTRA_EXPORTED_RUNTIME_METHODS=['ccall']" -O3
+emcc square.cpp -O3 -o public/square.js \
+  -s "EXTRA_EXPORTED_RUNTIME_METHODS=['cwrap']" \
+  -s "EXPORTED_FUNCTIONS=['_square']"

@@ -14,29 +14,25 @@
       <h1>C++ / WebAssembly Demo</h1>
     </header>
 
-    <input type="number" id="arg1"> x
-    <input type="number" id="arg2">
-    <button>Multiply</button>
-    <p id="result"></p>
+    <input type="number">
+    <button>Square</button>
+    <div id="result"></div>
 
     <script>
-      const arg1 = document.querySelector('#arg1');
-      const arg2 = document.querySelector('#arg2');
-
-      arg1.value = 2 + Math.floor(Math.random() * 9);
-      arg2.value = 2 + Math.floor(Math.random() * 9);
+      const input = document.querySelector('input');
+      input.value = 1 + Math.floor(Math.random() * 10);
 
       var Module = {
         onRuntimeInitialized: () => {
-          document.querySelector('button')
-            .addEventListener('click', () => {
-              document.querySelector('#result').innerText = 'The result is '
-                + Module.ccall('multiply', 'number', ['number', 'number'], [arg1.value, arg2.value]);
-            });
+          const square = Module.cwrap('square', 'number', ['number']);
+
+          document.querySelector('button').addEventListener('click', () => {
+            document.querySelector('#result').innerHTML = `<code>${input.value} squared is ${square(input.value)}</code>`;
+          });
         }
       };
     </script>
 
-    <script src="cpp-wasm-demo.js"></script>
+    <script src="square.js"></script>
   </body>
 </html>
