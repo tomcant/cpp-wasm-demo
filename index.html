@@ -27,10 +27,10 @@
       arg2.value = 2 + Math.floor(Math.random() * 9);
 
       var Module = {
-        onRuntimeInitialized: function() {
+        onRuntimeInitialized: () => {
           document.querySelector('button')
-            .addEventListener('click', function() {
-              document.getElementById('result').innerText = 'The result is '
+            .addEventListener('click', () => {
+              document.querySelector('#result').innerText = 'The result is '
                 + Module.ccall('multiply', 'number', ['number', 'number'], [arg1.value, arg2.value]);
             });
         }
