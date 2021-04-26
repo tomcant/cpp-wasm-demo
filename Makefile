@@ -4,4 +4,4 @@ run: build
 
 .PHONY: build
 build:
-	docker run --rm -v $(PWD):/src emscripten/emsdk:2.0.15 ./build.sh
+	docker run --rm -v $(PWD):/src emscripten/emsdk:2.0.18 ./build.sh
